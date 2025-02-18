@@ -67,6 +67,30 @@ public:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
+	/*
+	 *  Primary Attributes
+	 */
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Strength, Category = "Primary Attributes")
+	FGameplayAttributeData Strength;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Strength);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Intelligence, Category = "Primary Attributes")
+	FGameplayAttributeData Intelligence;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Intelligence);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Resilience, Category = "Primary Attributes")
+	FGameplayAttributeData Resilience;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Resilience);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Vigor, Category = "Primary Attributes")
+	FGameplayAttributeData Vigor;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Vigor);
+	
+	/*
+	 *  Vital Attributes
+	 */
+	
 	//Setting up game attributes
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Vital Attributes")
 	FGameplayAttributeData Health;
@@ -84,13 +108,13 @@ public:
 	FGameplayAttributeData MaxMana;
 	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, MaxMana); //Will remove later to access via gameplay effects?
 
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Fatigue, Category = "Vital Attributes")
-	FGameplayAttributeData Fatigue;
-	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Fatigue); //Will remove later to access via gameplay effects?
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Stamina, Category = "Vital Attributes")
+	FGameplayAttributeData Stamina;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Stamina); //Will remove later to access via gameplay effects?
 
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxFatigue, Category = "Vital Attributes")
-	FGameplayAttributeData MaxFatigue;
-	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, MaxFatigue); //Will remove later to access via gameplay effects?
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxStamina, Category = "Vital Attributes")
+	FGameplayAttributeData MaxStamina;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, MaxStamina); //Will remove later to access via gameplay effects?
 
 	//AuxAttributes 1-3
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_AuxAttribute1, Category = "Vital Attributes")
@@ -130,10 +154,10 @@ public:
 	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
 
 	UFUNCTION()
-	void OnRep_Fatigue(const FGameplayAttributeData& OldFatigue) const;
+	void OnRep_Stamina(const FGameplayAttributeData& OldStamina) const;
 
 	UFUNCTION()
-	void OnRep_MaxFatigue(const FGameplayAttributeData& OldMaxFatigue) const;
+	void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const;
 
 	//AuxAttributes 1-3
 	UFUNCTION()
@@ -153,6 +177,20 @@ public:
 
 	UFUNCTION()
 	void OnRep_MaxAuxAttribute3(const FGameplayAttributeData& OldMaxAuxAttribute3) const;
+
+
+	//Primary Attributes setup
+	UFUNCTION()
+	void OnRep_Strength(const FGameplayAttributeData& OldStrength) const;
+
+	UFUNCTION()
+	void OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const;
+	
+	UFUNCTION()
+	void OnRep_Resilience(const FGameplayAttributeData& OldResilience) const;
+
+	UFUNCTION()
+	void OnRep_Vigor(const FGameplayAttributeData& OldVigor) const;
 
 private:
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;	

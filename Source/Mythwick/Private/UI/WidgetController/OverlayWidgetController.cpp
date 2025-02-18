@@ -17,7 +17,7 @@ void UOverlayWidgetController::BroadcastInitialValues()
 	OnManaChanged.Broadcast(DMSAttributeSet->GetMana());
 	OnMaxManaChanged.Broadcast(DMSAttributeSet->GetMaxMana());
 
-	/* Fatigue/Aux Attributes not currently set up based on note saying getters will not be used later in favor
+	/* Stamina/Aux Attributes not currently set up based on note saying getters will not be used later in favor
 	 * of using gameplay effects. */
 }
 
@@ -60,18 +60,18 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 			);
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		DMSAttributeSet->GetFatigueAttribute()).AddLambda(
+		DMSAttributeSet->GetStaminaAttribute()).AddLambda(
 			[this](const FOnAttributeChangeData& Data)
 			{
-				OnFatigueChanged.Broadcast(Data.NewValue);
+				OnStaminaChanged.Broadcast(Data.NewValue);
 			}
 			);
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		DMSAttributeSet->GetMaxFatigueAttribute()).AddLambda(
+		DMSAttributeSet->GetMaxStaminaAttribute()).AddLambda(
 			[this](const FOnAttributeChangeData& Data)
 			{
-				OnMaxFatigueChanged.Broadcast(Data.NewValue);
+				OnMaxStaminaChanged.Broadcast(Data.NewValue);
 			}
 			);
 
@@ -188,14 +188,14 @@ void UOverlayWidgetController::MaxManaChanged(const FOnAttributeChangeData& Data
 	OnMaxManaChanged.Broadcast(Data.NewValue);
 }
 
-void UOverlayWidgetController::FatigueChanged(const FOnAttributeChangeData& Data) const
+void UOverlayWidgetController::StaminaChanged(const FOnAttributeChangeData& Data) const
 {
-	OnFatigueChanged.Broadcast(Data.NewValue);
+	OnStaminaChanged.Broadcast(Data.NewValue);
 }
 
-void UOverlayWidgetController::MaxFatigueChanged(const FOnAttributeChangeData& Data) const
+void UOverlayWidgetController::MaxStaminaChanged(const FOnAttributeChangeData& Data) const
 {
-	OnMaxFatigueChanged.Broadcast(Data.NewValue);
+	OnMaxStaminaChanged.Broadcast(Data.NewValue);
 }
 
 //AuxAttributes 1-3

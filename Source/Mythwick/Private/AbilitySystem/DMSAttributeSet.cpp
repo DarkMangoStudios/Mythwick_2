@@ -20,12 +20,18 @@ void UDMSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
+	//Primary Attributes Lifetime notifications
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Strength, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Resilience, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Vigor, COND_None, REPNOTIFY_Always);
+
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Mana, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Fatigue, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxFatigue, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Stamina, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxStamina, COND_None, REPNOTIFY_Always);
 
 	//Adding auxilary attributes to represent held breath, adrenaline, hold onto ledge, etc.
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, AuxAttribute1, COND_None, REPNOTIFY_Always);
@@ -34,7 +40,7 @@ void UDMSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxAuxAttribute2, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, AuxAttribute3, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxAuxAttribute3, COND_None, REPNOTIFY_Always);
-
+	
 }
 
 //PreAttributeChange is primarily just for clamping values to mins and maxes
@@ -61,11 +67,11 @@ void UDMSAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 		NewValue = FMath::Max(NewValue, 0.f);
 	}*/
 
-	if (Attribute == GetFatigueAttribute())
+	if (Attribute == GetStaminaAttribute())
 	{
-		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxFatigue());
+		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxStamina());
 	}
-	/*if (Attribute == GetMaxFatigueAttribute())
+	/*if (Attribute == GetMaxStaminaAttribute())
 	{
 		NewValue = FMath::Max(NewValue, 0.f);
 	}*/
@@ -161,9 +167,9 @@ void UDMSAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
 	}
 	
-	if (Data.EvaluatedData.Attribute == GetFatigueAttribute())
+	if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 	{
-		SetFatigue(FMath::Clamp(GetFatigue(), 0.f, GetMaxFatigue()));
+		SetStamina(FMath::Clamp(GetStamina(), 0.f, GetMaxStamina()));
 	}
 
 	//Aux 1-3 ACTIVE
@@ -202,14 +208,14 @@ void UDMSAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) c
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MaxMana, OldMaxMana);
 }
 
-void UDMSAttributeSet::OnRep_Fatigue(const FGameplayAttributeData& OldFatigue) const
+void UDMSAttributeSet::OnRep_Stamina(const FGameplayAttributeData& OldStamina) const
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Fatigue, OldFatigue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Stamina, OldStamina);
 }
 
-void UDMSAttributeSet::OnRep_MaxFatigue(const FGameplayAttributeData& OldMaxFatigue) const
+void UDMSAttributeSet::OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MaxFatigue, OldMaxFatigue);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MaxStamina, OldMaxStamina);
 }
 
 //AuxAttributes 1-3
@@ -241,4 +247,24 @@ void UDMSAttributeSet::OnRep_AuxAttribute3(const FGameplayAttributeData& OldAuxA
 void UDMSAttributeSet::OnRep_MaxAuxAttribute3(const FGameplayAttributeData& OldMaxAuxAttribute3) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MaxAuxAttribute3, OldMaxAuxAttribute3);
+}
+
+void UDMSAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Strength, OldStrength);
+}
+
+void UDMSAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Intelligence, OldIntelligence);
+}
+
+void UDMSAttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilience) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Resilience, OldResilience);
+}
+
+void UDMSAttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Vigor, OldVigor);
 }

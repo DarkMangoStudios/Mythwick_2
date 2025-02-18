@@ -36,8 +36,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float,
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangedSignature, float, NewMana);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChangedSignature, float, NewMaxMana);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFatigueChangedSignature, float, NewFatigue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxFatigueChangedSignature, float, NewMaxFatigue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStaminaChangedSignature, float, NewStamina);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxStaminaChangedSignature, float, NewMaxStamina);
 
 //AuxAttributes 1-3 delegates
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAuxAttribute1ChangedSignature, float, NewAuxAttribute1);
@@ -81,9 +81,9 @@ public:
 	FOnAttributeChangedSignature OnMaxManaChanged;
 
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
-	FOnAttributeChangedSignature OnFatigueChanged;
+	FOnAttributeChangedSignature OnStaminaChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
-	FOnAttributeChangedSignature OnMaxFatigueChanged;
+	FOnAttributeChangedSignature OnMaxStaminaChanged;
 
 	//AuxAttributes 1-3 OnChanged objects
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
@@ -116,8 +116,8 @@ protected:
 	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;
 	void ManaChanged(const FOnAttributeChangeData& Data) const;
 	void MaxManaChanged(const FOnAttributeChangeData& Data) const;
-	void FatigueChanged(const FOnAttributeChangeData& Data) const;
-	void MaxFatigueChanged(const FOnAttributeChangeData& Data) const;
+	void StaminaChanged(const FOnAttributeChangeData& Data) const;
+	void MaxStaminaChanged(const FOnAttributeChangeData& Data) const;
 
 	//AuxAttributes 1-3 function calls
 	void AuxAttribute1Changed(const FOnAttributeChangeData& Data) const;
