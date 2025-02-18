@@ -10,6 +10,7 @@
 //Forward declaring objects (classes)
 class UAbilitySystemComponent;
 class UAttributeSet;
+class UGameplayEffect;
 
 UCLASS(Abstract)
 class MYTHWICK_API ADMSCharacterBase : public ACharacter, public IAbilitySystemInterface
@@ -49,5 +50,10 @@ protected:
 //************************************************************
 
 	virtual void InitAbilityActorInfo();
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
+
+	void InitializePrimaryAttributes() const;
 
 };

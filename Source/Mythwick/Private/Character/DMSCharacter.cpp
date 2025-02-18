@@ -82,4 +82,7 @@ void ADMSCharacter::InitAbilityActorInfo()
 			DMSHUD->InitOverlay(DMSPlayerController, DMSPlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
+
+	//Initializing primary default values for DMSCharacter on server. GAS 66.
+	InitializePrimaryAttributes();
 }

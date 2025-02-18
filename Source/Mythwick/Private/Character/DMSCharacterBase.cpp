@@ -2,6 +2,7 @@
 
 
 #include "Character/DMSCharacterBase.h"
+#include "AbilitySystemComponent.h"
 
 ADMSCharacterBase::ADMSCharacterBase()
 {
@@ -26,4 +27,13 @@ void ADMSCharacterBase::BeginPlay()
 void ADMSCharacterBase::InitAbilityActorInfo()
 {
 	
+}
+
+void ADMSCharacterBase::InitializePrimaryAttributes() const
+{
+	check(IsValid(GetAbilitySystemComponent()));
+	check(DefaultPrimaryAttributes);
+	const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(DefaultPrimaryAttributes, 1.f, ContextHandle);
+	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
 }
