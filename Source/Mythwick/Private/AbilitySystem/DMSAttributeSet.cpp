@@ -25,6 +25,9 @@ void UDMSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Resilience, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Vigor, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Constitution, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Dexterity, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Charisma, COND_None, REPNOTIFY_Always);
 
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
@@ -267,4 +270,19 @@ void UDMSAttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilie
 void UDMSAttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Vigor, OldVigor);
+}
+
+void UDMSAttributeSet::OnRep_Constitution(const FGameplayAttributeData& OldConstitution) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Constitution, OldConstitution);
+}
+
+void UDMSAttributeSet::OnRep_Dexterity(const FGameplayAttributeData& OldDexterity) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Dexterity, OldDexterity);
+}
+
+void UDMSAttributeSet::OnRep_Charisma(const FGameplayAttributeData& OldCharisma) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Charisma, OldCharisma);
 }

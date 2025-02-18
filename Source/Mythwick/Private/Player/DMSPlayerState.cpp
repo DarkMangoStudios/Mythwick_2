@@ -6,6 +6,7 @@
 //Included for creating subcomponents below
 #include "AbilitySystem/DMSAbilitySystemComponent.h"
 #include "AbilitySystem/DMSAttributeSet.h"
+#include "Net/UnrealNetwork.h"
 
 ADMSPlayerState::ADMSPlayerState()
 {
@@ -33,7 +34,20 @@ ADMSPlayerState::ADMSPlayerState()
 //***************************************************************************************
 }
 
+void ADMSPlayerState::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	//Boiler plate for make variables replicated for multiplayer functionality. GAS 73.
+	DOREPLIFETIME(ADMSPlayerState, Level);
+}
+
 UAbilitySystemComponent* ADMSPlayerState::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+void ADMSPlayerState::OnRep_Level(int32 OldLevel)
+{
+	
 }

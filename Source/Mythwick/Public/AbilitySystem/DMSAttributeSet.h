@@ -83,9 +83,22 @@ public:
 	FGameplayAttributeData Resilience;
 	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Resilience);
 
+	//Vigor will be commented out later on to be replaced with Constitution
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Vigor, Category = "Primary Attributes")
 	FGameplayAttributeData Vigor;
 	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Vigor);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Constitution, Category = "Primary Attributes")
+	FGameplayAttributeData Constitution;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Constitution);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Dexterity, Category = "Primary Attributes")
+	FGameplayAttributeData Dexterity;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Dexterity);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Charisma, Category = "Primary Attributes")
+	FGameplayAttributeData Charisma;
+	ATTRIBUTE_ACCESSORS(UDMSAttributeSet, Charisma);
 	
 	/*
 	 *  Vital Attributes
@@ -191,6 +204,15 @@ public:
 
 	UFUNCTION()
 	void OnRep_Vigor(const FGameplayAttributeData& OldVigor) const;
+
+	UFUNCTION()
+	void OnRep_Constitution(const FGameplayAttributeData& OldConstitution) const;
+
+	UFUNCTION()
+	void OnRep_Dexterity(const FGameplayAttributeData& OldDexterity) const;
+
+	UFUNCTION()
+	void OnRep_Charisma(const FGameplayAttributeData& OldCharisma) const;
 
 private:
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;	

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
+#include "Interaction/CombatInterface.h"
 #include "DMSCharacterBase.generated.h"
 
 //Forward declaring objects (classes)
@@ -13,7 +14,7 @@ class UAttributeSet;
 class UGameplayEffect;
 
 UCLASS(Abstract)
-class MYTHWICK_API ADMSCharacterBase : public ACharacter, public IAbilitySystemInterface
+class MYTHWICK_API ADMSCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
 	GENERATED_BODY()
 	

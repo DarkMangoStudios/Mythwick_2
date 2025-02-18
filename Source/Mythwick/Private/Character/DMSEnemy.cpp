@@ -38,6 +38,11 @@ void ADMSEnemy::UnHighlightActor()
 	Weapon->SetRenderCustomDepth(false);
 }
 
+int32 ADMSEnemy::GetPlayerLevel()
+{
+	return Level;
+}
+
 void ADMSEnemy::BeginPlay()
 {
 	Super::BeginPlay();

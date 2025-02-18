@@ -57,6 +57,13 @@ void ADMSCharacter::OnRep_PlayerState()
 	InitAbilityActorInfo();
 }
 
+int32 ADMSCharacter::GetPlayerLevel()
+{
+	const ADMSPlayerState* DMSPlayerState = GetPlayerState<ADMSPlayerState>();
+	check(DMSPlayerState);
+	return DMSPlayerState->GetPlayerLevel();
+}
+
 //Made a function to init ability actor info as the code would be used twice above
 void ADMSCharacter::InitAbilityActorInfo()
 {

@@ -20,13 +20,20 @@ public:
 	ADMSEnemy();
 	
 	//Overriding our pure virtual functions from the EnemyInterface class
-//********************************************************************************
+//Start********************************************************************************
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
-//********************************************************************************
+//End********************************************************************************
+
+	//Combat Interface virtual function override. Inherited from characterbase. GAS 73.
+//Start********************************************************************************
+	virtual int32 GetPlayerLevel() override;
+//End********************************************************************************
 
 protected:
 	virtual void BeginPlay() override;
-
 	virtual void InitAbilityActorInfo() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
+	int32 Level = 1;
 };
