@@ -10,17 +10,18 @@
 
 UDMSAttributeSet::UDMSAttributeSet()
 {
-	InitHealth(50.f); //Will remove later to access via gameplay effects
-	InitMaxHealth(100.f); //Will remove later to access via gameplay effects
+	/*InitHealth(50.f); //Will remove later to access via gameplay effects
+	/*InitMaxHealth(100.f); //Will remove later to access via gameplay effects
 	InitMana(24.f); //Will remove later to access via gameplay effects
-	InitMaxMana(50.f); //Will remove later to access via gameplay effects
+	/*InitMaxMana(50.f); //Will remove later to access via gameplay effects*/
 }
 
 void UDMSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	//Primary Attributes Lifetime notifications
+	//Primary Attributes lifetime notifications
+//Start*************************************************************************************************
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Strength, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Resilience, COND_None, REPNOTIFY_Always);
@@ -28,14 +29,54 @@ void UDMSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Constitution, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Dexterity, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Charisma, COND_None, REPNOTIFY_Always);
+//End*************************************************************************************************
+	
+	//Secondary Attributes lifetime notifications
+//Start*************************************************************************************************
+	//Strength Association
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MeleeArmorPen, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MeleeCritDam, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MeleeCritChance, COND_None, REPNOTIFY_Always);
 
+	//Intelligence Association
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, SpellArmorPen, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, SpellCritDam, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, SpellCritChance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, SpellSlotRegen, COND_None, REPNOTIFY_Always);
+
+	//Resilience Association
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Armor, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, BlockChance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, CritResistance, COND_None, REPNOTIFY_Always);
+
+	//Constitution Association
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, HealthRegen, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, StaminaRegen, COND_None, REPNOTIFY_Always);
+
+	//Dexterity Association
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, RangedArmorPen, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, RangedCritDam, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, RangedCritChance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Speed, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Stealth, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, SleightOfHand, COND_None, REPNOTIFY_Always);
+
+	//Charisma Association
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Persuasion, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Intimidation, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Deception, COND_None, REPNOTIFY_Always);
+//End*************************************************************************************************
+	
+	//Vital Attributes lifetime notifications
+//Start*************************************************************************************************
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Mana, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, SpellSlots, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxSpellSlots, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Stamina, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxStamina, COND_None, REPNOTIFY_Always);
-
 	//Adding auxilary attributes to represent held breath, adrenaline, hold onto ledge, etc.
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, AuxAttribute1, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxAuxAttribute1, COND_None, REPNOTIFY_Always);
@@ -43,6 +84,7 @@ void UDMSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxAuxAttribute2, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, AuxAttribute3, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, MaxAuxAttribute3, COND_None, REPNOTIFY_Always);
+//End*************************************************************************************************
 	
 }
 
@@ -56,57 +98,42 @@ void UDMSAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());
 	}
-	/*if (Attribute == GetMaxHealthAttribute())
-	{
-		NewValue = FMath::Max(NewValue, 0.f);
-	}*/
 	
 	if (Attribute == GetManaAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxMana());
 	}
-	/*if (Attribute == GetMaxManaAttribute())
+
+	if (Attribute == GetSpellSlotsAttribute())
 	{
-		NewValue = FMath::Max(NewValue, 0.f);
-	}*/
+		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxSpellSlots());
+	}
 
 	if (Attribute == GetStaminaAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxStamina());
 	}
-	/*if (Attribute == GetMaxStaminaAttribute())
-	{
-		NewValue = FMath::Max(NewValue, 0.f);
-	}*/
 
 	//AuxAttributes 1-3
 	if (Attribute == GetAuxAttribute1Attribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxAuxAttribute1());
 	}
-	/*if (Attribute == GetMaxAuxAttribute1Attribute())
-	{
-		NewValue = FMath::Max(NewValue, 0.f);
-	}*/
 	
 	if (Attribute == GetAuxAttribute2Attribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxAuxAttribute2());
 	}
-	/*if (Attribute == GetMaxAuxAttribute2Attribute())
-	{
-		NewValue = FMath::Max(NewValue, 0.f);
-	}*/
 
 	if (Attribute == GetAuxAttribute3Attribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxAuxAttribute3());
 	}
+	//Relic of attempted clamping for max values
 	/*if (Attribute == GetMaxAuxAttribute3Attribute())
 	{
 		NewValue = FMath::Max(NewValue, 0.f);
 	}*/
-	
 }
 
 void UDMSAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const
@@ -169,6 +196,11 @@ void UDMSAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 	{
 		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
 	}
+
+	if (Data.EvaluatedData.Attribute == GetSpellSlotsAttribute())
+	{
+		SetSpellSlots(FMath::Clamp(GetSpellSlots(), 0.f, GetMaxSpellSlots()));
+	}
 	
 	if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 	{
@@ -209,6 +241,16 @@ void UDMSAttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
 void UDMSAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MaxMana, OldMaxMana);
+}
+
+void UDMSAttributeSet::OnRep_SpellSlots(const FGameplayAttributeData& OldSpellSlots) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, SpellSlots, OldSpellSlots);
+}
+
+void UDMSAttributeSet::OnRep_MaxSpellSlots(const FGameplayAttributeData& OldMaxSpellSlots) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MaxSpellSlots, OldMaxSpellSlots);
 }
 
 void UDMSAttributeSet::OnRep_Stamina(const FGameplayAttributeData& OldStamina) const
@@ -285,4 +327,116 @@ void UDMSAttributeSet::OnRep_Dexterity(const FGameplayAttributeData& OldDexterit
 void UDMSAttributeSet::OnRep_Charisma(const FGameplayAttributeData& OldCharisma) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Charisma, OldCharisma);
+}
+
+/* Secondary Attributes */
+//Strength Association
+void UDMSAttributeSet::OnRep_MeleeArmorPen(const FGameplayAttributeData& OldMeleeArmorPen) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MeleeArmorPen, OldMeleeArmorPen);
+}
+
+void UDMSAttributeSet::OnRep_MeleeCritDam(const FGameplayAttributeData& OldMeleeCritDam) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MeleeCritDam, OldMeleeCritDam);
+}
+
+void UDMSAttributeSet::OnRep_MeleeCritChance(const FGameplayAttributeData& OldMeleeCritChance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, MeleeCritChance, OldMeleeCritChance);
+}
+
+//Intelligence Association
+void UDMSAttributeSet::OnRep_SpellArmorPen(const FGameplayAttributeData& OldSpellArmorPen) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, SpellArmorPen, OldSpellArmorPen);
+}
+
+void UDMSAttributeSet::OnRep_SpellCritDam(const FGameplayAttributeData& OldSpellCritDam) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, SpellCritDam, OldSpellCritDam);
+}
+
+void UDMSAttributeSet::OnRep_SpellCritChance(const FGameplayAttributeData& OldSpellCritChance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, SpellCritChance, OldSpellCritChance);
+}
+
+void UDMSAttributeSet::OnRep_SpellSlotRegen(const FGameplayAttributeData& OldSpellSlotRegen) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, SpellSlotRegen, OldSpellSlotRegen);
+}
+
+//Resilience Association
+void UDMSAttributeSet::OnRep_Armor(const FGameplayAttributeData& OldArmor) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Armor, OldArmor);
+}
+
+void UDMSAttributeSet::OnRep_BlockChance(const FGameplayAttributeData& OldBlockChance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, BlockChance, OldBlockChance);
+}
+
+void UDMSAttributeSet::OnRep_CritResistance(const FGameplayAttributeData& OldCritResistance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, CritResistance, OldCritResistance);
+}
+
+//Constitution Association
+void UDMSAttributeSet::OnRep_HealthRegen(const FGameplayAttributeData& OldHealthRegen) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, HealthRegen, OldHealthRegen);
+}
+
+void UDMSAttributeSet::OnRep_StaminaRegen(const FGameplayAttributeData& OldStaminaRegen) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, StaminaRegen, OldStaminaRegen);
+}
+
+//Dexterity Association
+void UDMSAttributeSet::OnRep_RangedArmorPen(const FGameplayAttributeData& OldRangedArmorPen) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, RangedArmorPen, OldRangedArmorPen);
+}
+
+void UDMSAttributeSet::OnRep_RangedCritDam(const FGameplayAttributeData& OldRangedCritDam) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, RangedCritDam, OldRangedCritDam);
+}
+
+void UDMSAttributeSet::OnRep_RangedCritChance(const FGameplayAttributeData& OldRangedCritChance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, RangedCritChance, OldRangedCritChance);
+}
+
+void UDMSAttributeSet::OnRep_Speed(const FGameplayAttributeData& OldSpeed) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Speed, OldSpeed);
+}
+
+void UDMSAttributeSet::OnRep_Stealth(const FGameplayAttributeData& OldStealth) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Stealth, OldStealth);
+}
+
+void UDMSAttributeSet::OnRep_SleightOfHand(const FGameplayAttributeData& OldSleightOfHand) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, SleightOfHand, OldSleightOfHand);
+}
+
+//Charisma Association
+void UDMSAttributeSet::OnRep_Persuasion(const FGameplayAttributeData& OldPersuasion) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Persuasion, OldPersuasion);
+}
+
+void UDMSAttributeSet::OnRep_Intimidation(const FGameplayAttributeData& OldIntimidation) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Intimidation, OldIntimidation);
+}
+
+void UDMSAttributeSet::OnRep_Deception(const FGameplayAttributeData& OldDeception) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDMSAttributeSet, Deception, OldDeception);
 }

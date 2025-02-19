@@ -91,5 +91,5 @@ void ADMSCharacter::InitAbilityActorInfo()
 	}
 
 	//Initializing primary default values for DMSCharacter on server. GAS 66.
-	InitializePrimaryAttributes();
+	InitializeDefaultAttributes();
 }

@@ -1,10 +1,10 @@
 // Copyright Dark Mango Studios
 
 
-#include "Interaction/CombatInterface.h"
+#include "Interaction/AttributeInterface.h"
 
 // Add default functionality here for any ICombatInterface functions that are not pure virtual.
-int32 ICombatInterface::GetPlayerLevel()
+int32 IAttributeInterface::GetPlayerLevel()
 {
     return 0;
 }

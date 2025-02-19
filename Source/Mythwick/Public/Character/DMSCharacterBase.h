@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
-#include "Interaction/CombatInterface.h"
+#include "Interaction/AttributeInterface.h"
 #include "DMSCharacterBase.generated.h"
 
 //Forward declaring objects (classes)
@@ -14,7 +14,7 @@ class UAttributeSet;
 class UGameplayEffect;
 
 UCLASS(Abstract)
-class MYTHWICK_API ADMSCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
+class MYTHWICK_API ADMSCharacterBase : public ACharacter, public IAbilitySystemInterface, public IAttributeInterface
 {
 	GENERATED_BODY()
 	
@@ -55,6 +55,13 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
 
-	void InitializePrimaryAttributes() const;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
+
+	//Refactored Initialization of attributes function
+	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
+	void InitializeDefaultAttributes() const;
 };
