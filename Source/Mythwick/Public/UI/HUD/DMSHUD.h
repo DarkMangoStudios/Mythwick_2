@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "DMSHUD.generated.h"
 
 class UOverlayWidgetController;
@@ -21,11 +22,11 @@ class MYTHWICK_API ADMSHUD : public AHUD
 
 public:
 
-	UPROPERTY()
-	TObjectPtr<UDMSUserWidget> OverlayWidget;
-
 	//Making a getter function to get the overlay widget controller. Need a pointer in private section
 	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+
+	//Getter for attribute menu widget controller (GAS 92)
+	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
 
 	//Since we do not directly have access to our 4 key variables: PlayerState, PlayerController, ASC and Attr Set
 	//We will make a function in order to set those variables
@@ -34,6 +35,9 @@ public:
 protected:
 
 private:
+
+	UPROPERTY()
+	TObjectPtr<UDMSUserWidget> OverlayWidget;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UDMSUserWidget> OverlayWidgetClass;
@@ -45,4 +49,10 @@ private:
 	//Need new subclass to assign our NewObject to within our getter function
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
+
+	UPROPERTY()
+	TObjectPtr<UAttributeMenuWidgetController> AttributeMenuWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass;
 };

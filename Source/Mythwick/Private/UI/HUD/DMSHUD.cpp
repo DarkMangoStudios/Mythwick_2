@@ -17,10 +17,20 @@ UOverlayWidgetController* ADMSHUD::GetOverlayWidgetController(const FWidgetContr
 
 		//BindCallbacksToDependencies here, should pick up changes in game and update our hud
 		OverlayWidgetController->BindCallbacksToDependencies();
-
-		return OverlayWidgetController;
 	}
 	return OverlayWidgetController;
+}
+
+//Setting up communication for the attribute menu almost exactly like the overlay above. (GAS 92)
+UAttributeMenuWidgetController* ADMSHUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams)
+{
+	if (AttributeMenuWidgetController == nullptr)
+	{
+		AttributeMenuWidgetController = NewObject<UAttributeMenuWidgetController>(this,AttributeMenuWidgetControllerClass);
+		AttributeMenuWidgetController->SetWidgetControllerParams(WCParams);
+		AttributeMenuWidgetController->BindCallbacksToDependencies();
+	}
+	return AttributeMenuWidgetController;
 }
 
 void ADMSHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)

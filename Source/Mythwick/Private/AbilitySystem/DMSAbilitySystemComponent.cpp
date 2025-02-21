@@ -11,15 +11,15 @@ void UDMSAbilitySystemComponent::AbilityActorInfoSet()
 	/*//This is how we are accessing our gameplay tags from DMSGameplayTags.h
 	const FDMSGameplayTags& GameplayTags = FDMSGameplayTags::Get();
 	//Can also get directly via:
-	FDMSGameplayTags::Get().Attributes_Primary_Strength //(GAS 88)
+	//FDMSGameplayTags::Get().Attributes_Primary_Strength //(GAS 88)
 	
 	//DEBUG: Testing to see if we are able to access the Armor gameplay tag that was created natively.
 	//Will print as many times as abilityactorinfoset is used to set up characters/enemies. GAS 87.
-	GEngine->AddOnScreenDebugMessage(-1,
+	/*GEngine->AddOnScreenDebugMessage(-1,
 		10.f,
 		FColor::Orange,
 		FString::Printf(TEXT("Tag: %s"), 
-		*GameplayTags.Attributes_Secondary_Armor.ToString()));*/
+		*GameplayTags.Attributes_Secondary_Armor.ToString()));#1#*/
 }
 
 void UDMSAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
