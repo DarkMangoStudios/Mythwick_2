@@ -16,7 +16,12 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 {
 	UDMSAttributeSet* AS = CastChecked<UDMSAttributeSet>(AttributeSet);
 
-	FDMSAttributeInfo Info = PrimaryAttributeInfo->FindAttributeInfoForTag(FDMSGameplayTags::Get().Attributes_Primary_Strength);
-	Info.AttributeValue = AS->GetStrength();
-	AttributeInfoDelegate.Broadcast(Info);
+	check(PrimaryAttributeInfo);
+
+	for (auto& Pair : AS->TagsToAttributes)
+	{
+		FDMSAttributeInfo Info = PrimaryAttributeInfo->FindAttributeInfoForTag(Pair.Key);
+		Info.AttributeValue = Pair.Value().GetNumericValue(AS);
+		AttributeInfoDelegate.Broadcast(Info);
+	}
 }

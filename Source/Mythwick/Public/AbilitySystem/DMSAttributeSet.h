@@ -15,6 +15,9 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+//No longer needed. (GAS 95)
+//DECLARE_DELEGATE_RetVal(FGameplayAttribute, FAttributeSignature);
+
 USTRUCT()
 struct FEffectProperties
 {
@@ -48,6 +51,13 @@ struct FEffectProperties
 	ACharacter* TargetCharacter = nullptr;
 };
 
+//GAS 95. Sweeping ugly code out of sight...
+//typedef TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultTSDelegateUserPolicy>::FFuncPtr FAttributeFuncPtr;
+
+//typedef is specific to the FGameplayAttribute() signature, but TStaticFuncPtr is generic to any signature chosen.
+template<class T>
+using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultTSDelegateUserPolicy>::FFuncPtr;
+
 /**
  * 
  */
@@ -64,6 +74,17 @@ public:
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
+	//To link our attribute menu controller more efficiently. (GAS 95) Function pointer
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
+	//TMap<FGameplayTag, FGameplayAttribute(*)()> TagsToAttributes;
+	//TMap<FGameplayTag, TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultTSDelegateUserPolicy>::FFuncPtr> TagsToAttributes;
+	//TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultTSDelegateUserPolicy>::FFuncPtr FunctionPointer;
+
+	//Showing off (GAS 95)
+	/*TStaticFuncPtr<float(int32, float, int32)> RandomFunctionPointer;
+	static float RandomFunction(int32 I, float F, int32 I2) { return 0.f; }*/
+	
 	
 	//Primary Attributes
 //Start*************************************************************************************************

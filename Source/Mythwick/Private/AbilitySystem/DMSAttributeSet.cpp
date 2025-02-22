@@ -7,13 +7,81 @@
 #include "GameplayEffectExtension.h" //Needed for "const FGameplayEffectModCallbackData& Data" param in post gameplay effect
 #include "GameFramework/Character.h"
 #include "Net/UnrealNetwork.h"
+#include "DMSGameplayTags.h"
 
 UDMSAttributeSet::UDMSAttributeSet()
 {
-	/*InitHealth(50.f); //Will remove later to access via gameplay effects
-	/*InitMaxHealth(100.f); //Will remove later to access via gameplay effects
-	InitMana(24.f); //Will remove later to access via gameplay effects
-	/*InitMaxMana(50.f); //Will remove later to access via gameplay effects*/
+	const FDMSGameplayTags& GameplayTags = FDMSGameplayTags::Get();
+	
+	/* Primary Attributes */
+//Start*************************************************************************************************
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, GetStrengthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, GetIntelligenceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Resilience, GetResilienceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Constitution, GetConstitutionAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Dexterity, GetDexterityAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Charisma, GetCharismaAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Vigor, GetVigorAttribute);
+//End*************************************************************************************************
+	
+	/* Secondary Attributes */
+//Start*************************************************************************************************
+	//Strength Association
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MeleeArmorPen, GetMeleeArmorPenAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MeleeCritDam, GetMeleeCritDamAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MeleeCritChance, GetMeleeCritChanceAttribute);
+	
+	//Intelligence Association
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_SpellArmorPen, GetSpellArmorPenAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_SpellCritDam, GetSpellCritDamAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_SpellCritChance, GetSpellCritChanceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_SpellSlotRegen, GetSpellSlotRegenAttribute);
+	
+	//Resilience Association
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Armor, GetArmorAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_BlockChance, GetBlockChanceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_CritResistance, GetCritResistanceAttribute);
+	
+	//Constitution Association
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_HealthRegen, GetHealthRegenAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_StaminaRegen, GetStaminaRegenAttribute);
+	
+	//Dexterity Association
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_RangedArmorPen, GetRangedArmorPenAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_RangedCritDam, GetRangedCritDamAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_RangedCritChance, GetRangedCritChanceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Speed, GetSpeedAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Stealth, GetStealthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_SleightOfHand, GetSleightOfHandAttribute);
+	
+	//Charisma Association
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Persuasion, GetPersuasionAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Intimidation, GetIntimidationAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Deception, GetDeceptionAttribute);
+//End*************************************************************************************************
+	
+	/* Vital Attributes */
+//Start*************************************************************************************************
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_Health, GetHealthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxHealth, GetMaxHealthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_Mana, GetManaAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxMana, GetMaxManaAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_SpellSlots, GetSpellSlotsAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxSpellSlots, GetMaxSpellSlotsAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_Stamina, GetStaminaAttribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxStamina, GetMaxStaminaAttribute);
+	//Adding auxilary attributes to represent held breath, adrenaline, hold onto ledge, etc.
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_AuxAttribute1, GetAuxAttribute1Attribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxAuxAttribute1, GetMaxAuxAttribute1Attribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_AuxAttribute2, GetAuxAttribute2Attribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxAuxAttribute2, GetMaxAuxAttribute2Attribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_AuxAttribute3, GetAuxAttribute3Attribute);
+	TagsToAttributes.Add(GameplayTags.Attributes_Vital_MaxAuxAttribute3, GetMaxAuxAttribute3Attribute);
+//End*************************************************************************************************
+	
+	//Showing off (GAS 95)
+	/*RandomFunctionPointer = RandomFunction;
+	float F = RandomFunctionPointer(0, 0.f, 0);*/
 }
 
 void UDMSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -25,10 +93,10 @@ void UDMSAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Strength, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Resilience, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Vigor, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Constitution, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Dexterity, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Charisma, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDMSAttributeSet, Vigor, COND_None, REPNOTIFY_Always);
 //End*************************************************************************************************
 	
 	//Secondary Attributes lifetime notifications
