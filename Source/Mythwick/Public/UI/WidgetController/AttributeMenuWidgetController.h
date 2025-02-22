@@ -6,6 +6,10 @@
 #include "UI/WidgetController/DMSWidgetController.h"
 #include "AttributeMenuWidgetController.generated.h"
 
+class UAttributeInfo;
+struct FDMSAttributeInfo;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeInfoSignature, const FDMSAttributeInfo&, Info);
+
 /**
  * 
  */
@@ -16,4 +20,15 @@ class MYTHWICK_API UAttributeMenuWidgetController : public UDMSWidgetController
 public:
 	virtual void BindCallbacksToDependencies() override;
 	virtual void BroadcastInitialValues() override;
+
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FAttributeInfoSignature AttributeInfoDelegate;
+	
+protected:
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UAttributeInfo> PrimaryAttributeInfo;
+
+	/*UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UAttributeInfo> SecondaryAttributeInfo;*/
 };
