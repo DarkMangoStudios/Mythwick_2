@@ -83,9 +83,17 @@ public:
 	FGameplayTag Attributes_Vital_AuxAttribute3;
 	FGameplayTag Attributes_Vital_MaxAuxAttribute3;
 //End*************************************************************************************************
-	
-protected:
 
+	/* InputTags */		//(GAS 100)
+//Start*************************************************************************************************
+	FGameplayTag InputTag_LeftMouseButton;
+	FGameplayTag InputTag_RightMouseButton;
+	FGameplayTag InputTag_1;
+	FGameplayTag InputTag_2;
+	FGameplayTag InputTag_3;
+	FGameplayTag InputTag_4;
+//End*************************************************************************************************
+	
 private:
 	static FDMSGameplayTags GameplayTags;
 	

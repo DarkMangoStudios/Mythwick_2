@@ -12,6 +12,7 @@
 class UAbilitySystemComponent;
 class UAttributeSet;
 class UGameplayEffect;
+class UGameplayAbility;
 
 UCLASS(Abstract)
 class MYTHWICK_API ADMSCharacterBase : public ACharacter, public IAbilitySystemInterface, public IAttributeInterface
@@ -64,4 +65,12 @@ protected:
 	//Refactored Initialization of attributes function
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
 	void InitializeDefaultAttributes() const;
+
+	void AddCharacterAbilities();
+	
+private:
+	
+	//(GAS 98) Array of abilities
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 };

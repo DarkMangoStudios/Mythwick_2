@@ -47,6 +47,9 @@ void ADMSCharacter::PossessedBy(AController* NewController)
 
 	//Init ability actor info for the server
 	InitAbilityActorInfo();
+
+	//Adding character abilities on possessed by for DMSCharacter. (GAS 98)
+	AddCharacterAbilities();
 }
 
 void ADMSCharacter::OnRep_PlayerState()

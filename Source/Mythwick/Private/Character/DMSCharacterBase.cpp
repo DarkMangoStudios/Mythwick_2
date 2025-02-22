@@ -3,6 +3,7 @@
 
 #include "Character/DMSCharacterBase.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/DMSAbilitySystemComponent.h"
 
 ADMSCharacterBase::ADMSCharacterBase()
 {
@@ -45,4 +46,13 @@ void ADMSCharacterBase::InitializeDefaultAttributes() const
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
+}
+
+//(GAS 98)
+void ADMSCharacterBase::AddCharacterAbilities()
+{
+	UDMSAbilitySystemComponent* DMSASC = CastChecked<UDMSAbilitySystemComponent>(AbilitySystemComponent);
+	if (!HasAuthority()) return;
+
+	DMSASC->AddCharacterAbilities(StartupAbilities);
 }

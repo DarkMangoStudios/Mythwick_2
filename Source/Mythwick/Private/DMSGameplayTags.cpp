@@ -197,4 +197,31 @@ void FDMSGameplayTags::InitializeNativeGameplayTags()
 		FName("Attributes.Vital.MaxAuxAttribute3"),
 		FString("Update DMSGameplayTags.cpp description."));
 //End*************************************************************************************************
+
+	/* InputTags */		//(GAS 100)
+//Start*************************************************************************************************
+	GameplayTags.InputTag_LeftMouseButton = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("InputTag.LeftMouseButton"),
+			FString("Update DMSGameplayTags.cpp description."));
+
+	GameplayTags.InputTag_RightMouseButton = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("InputTag.RightMouseButton"),
+			FString("Update DMSGameplayTags.cpp description."));
+
+	GameplayTags.InputTag_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("InputTag.1"),
+			FString("Update DMSGameplayTags.cpp description."));
+
+	GameplayTags.InputTag_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("InputTag.2"),
+			FString("Update DMSGameplayTags.cpp description."));
+
+	GameplayTags.InputTag_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("InputTag.3"),
+			FString("Update DMSGameplayTags.cpp description."));
+
+	GameplayTags.InputTag_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("InputTag.4"),
+			FString("Update DMSGameplayTags.cpp description."));
+//End*************************************************************************************************
 }

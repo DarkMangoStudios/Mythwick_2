@@ -22,6 +22,19 @@ void UDMSAbilitySystemComponent::AbilityActorInfoSet()
 		*GameplayTags.Attributes_Secondary_Armor.ToString()));#1#*/
 }
 
+//(GAS 98)
+void UDMSAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
+{
+	for (TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
+	{
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
+		//GiveAbility(AbilitySpec);
+
+		//Option to give ability and activate immediately. Function below does not allow AbilitySpec to be const.
+		GiveAbilityAndActivateOnce(AbilitySpec);
+	}
+}
+
 void UDMSAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
                                                const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
 {
