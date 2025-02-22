@@ -17,11 +17,21 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 	UDMSAttributeSet* AS = CastChecked<UDMSAttributeSet>(AttributeSet);
 
 	check(PrimaryAttributeInfo);
+	check(SecondaryAttributeInfo);
+	check(VitalAttributeInfo);
 
 	for (auto& Pair : AS->TagsToAttributes)
 	{
-		FDMSAttributeInfo Info = PrimaryAttributeInfo->FindAttributeInfoForTag(Pair.Key);
-		Info.AttributeValue = Pair.Value().GetNumericValue(AS);
-		AttributeInfoDelegate.Broadcast(Info);
+		FDMSAttributeInfo PrimaryInfo = PrimaryAttributeInfo->FindAttributeInfoForTag(Pair.Key);
+		PrimaryInfo.AttributeValue = Pair.Value().GetNumericValue(AS);
+		AttributeInfoDelegate.Broadcast(PrimaryInfo);
+
+		FDMSAttributeInfo SecondaryInfo = SecondaryAttributeInfo->FindAttributeInfoForTag(Pair.Key);
+		SecondaryInfo.AttributeValue = Pair.Value().GetNumericValue(AS);
+		AttributeInfoDelegate.Broadcast(SecondaryInfo);
+
+		FDMSAttributeInfo VitalInfo = VitalAttributeInfo->FindAttributeInfoForTag(Pair.Key);
+		VitalInfo.AttributeValue = Pair.Value().GetNumericValue(AS);
+		AttributeInfoDelegate.Broadcast(VitalInfo);
 	}
 }

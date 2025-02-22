@@ -29,6 +29,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UAttributeInfo> PrimaryAttributeInfo;
 
-	/*UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UAttributeInfo> SecondaryAttributeInfo;*/
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UAttributeInfo> SecondaryAttributeInfo;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UAttributeInfo> VitalAttributeInfo;
 };
